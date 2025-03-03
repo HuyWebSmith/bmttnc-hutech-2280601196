@@ -1,2 +1,2 @@
-# bmttnc_hutech_2280601196
-nguyenquanghuy_01196
+# bmttnc-hutech-2280601196
+nguyenquanghuy-01196
