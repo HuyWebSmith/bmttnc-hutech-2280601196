@@ -6,7 +6,7 @@ def is_prime(n):
             return False
     return True
 
-num = int(input("Nhap vao soso: "))
+num = int(input("Nhap vao so: "))
 if is_prime(num):
     print(f"{num} la so nguyen to.")
 else:
