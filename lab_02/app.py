@@ -1,19 +1,33 @@
+import sys
 from flask import Flask, render_template, request, json
 from cipher.caesar import CaesarCipher
 from cipher.vigenere import VigenereCipher
 from cipher.playfair import PlayFairCipher
 from cipher.railfence import RailFenceCipher
 from cipher.transposition  import TranspositionCipher
-
+from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5.uic import loadUi
 app = Flask(__name__)
 
 @app.route("/")
 def home():
     return render_template("index.html")
 
+class CaesarCipherApp(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        loadUi("../lab_03/UI/caesar.ui", self) 
+
+def start_ui():
+    qt_app = QApplication(sys.argv)
+    window = CaesarCipherApp()
+    window.show()
+    qt_app.exec()
+
 @app.route("/caesar")
-def caesar():
-    return render_template("caesar.html")
+def open_caesar_ui():
+    start_ui()
+    return "Giao diện Caesar Cipher đã mở!"
 
 @app.route("/vigenere")
 def vigenere():
@@ -55,7 +69,7 @@ def vigenere_encrypt():
     text = request.form["inputPlainText"]
     key = request.form["inputKeyPlain"]
     Vigenere = VigenereCipher()
-    encrypted_text = Vigenere.vigener_cipher(text, key)
+    encrypted_text = Vigenere.vigenere_encrypt(text, key)
     return f"text: {text}<br/>key: {key}<br/>encrypted_text: {encrypted_text}"
 
 @app.route("/vigenere/decrypt", methods=["POST"])
@@ -63,7 +77,7 @@ def vigenere_decrypt():
     text = request.form["inputCipherText"]
     key = request.form["inputKeyCipher"]
     Vigenere = VigenereCipher()
-    decrypted_text = Vigenere.vigener_decipher(text, key)
+    decrypted_text = Vigenere.vigenere_decrypt(text, key)
     return f"text: {text}<br/>key: {key}<br/>decrypted_text: {decrypted_text}"
 
 #Railfence Cipher

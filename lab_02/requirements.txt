@@ -1,1 +1,2 @@
-Flask
+PyQt5
+requests
